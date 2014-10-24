@@ -6,6 +6,6 @@ import br.com.caelum.vraptor.Resource;
 public class Hello {
 
 	public void world(){
-		System.out.println("Hello World");
+		System.out.println("Cawabanga");
 	}
 }
