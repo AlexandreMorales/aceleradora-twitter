@@ -1,6 +1,5 @@
 package br.com.aceleradora.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,28 +12,37 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class IndexController {
 	private BancoDeDados bd;
-	
-	public IndexController(BancoDeDados bd){
+
+	public IndexController(BancoDeDados bd) {
 		this.bd = bd;
-		//bd = new BancoDeDados();
+	}
+
+	@Path("/")
+	public List<Tweet> index(Result result) {
+		if(bd.todosTweets().size() != 0){
+			//result.included();
+			result.include("autorAnterior", bd.todosTweets().get(bd.todosTweets().size() - 1).getAutor());
+		}
+		return bd.todosTweets();
 	}
 	
-	@Path("/")
-	public void index() {
-	}
+	
 
-	public void recebeDados(String dado, Result result) {
-		try {
-			int dados = Integer.parseInt(dado);
-			dado += (dados) * 0.5;
-		} catch (Exception e) {
-		}
-		result.include("dado", dado + " " + new Date());
-	}
-
-	public List<Tweet> twittar(Tweet tweet, Result result) {
+	public void twittar(Tweet tweet, Result result) {
+		tweet.setData(new Date());
 		bd.adicionaTweet(tweet);
-		//result.forwardTo(this).recebeDados(tweet.getMensagem(), result);
-		return bd.todosTweets();
+		
+		result.forwardTo(this).index(result);
+	}
+
+	public void delete(int id, Result result) {
+		bd.removeTweet(id);
+		result.forwardTo(this).index(result);
+	}
+	
+	public void edite(int id, String mensagem, Result result) {
+		System.out.println(id + " " + mensagem);
+		bd.editeTweet(id, mensagem);
+		result.forwardTo(this).index(result);
 	}
 }
