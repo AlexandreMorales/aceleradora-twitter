@@ -8,9 +8,10 @@
 <title>Delicia de título cara</title>
 </head>
 <body>
-<form action="/twiter/index/recebeDados" method="post">
-	<label>Dado</label>
-	<input type="text" name="dado">
+<form action="${linkTo[IndexController].twittar}" method="post">
+	<label>Tweets: </label>
+	<input type="text" name="tweet.mensagem">
+	<br/>
 	<input type="submit" value="Enviar">
 </form>
 	<%
