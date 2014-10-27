@@ -20,7 +20,6 @@ public class IndexController {
 	@Path("/")
 	public List<Tweet> index(Result result) {
 		if(bd.todosTweets().size() != 0){
-			//result.included();
 			result.include("autorAnterior", bd.todosTweets().get(bd.todosTweets().size() - 1).getAutor());
 		}
 		return bd.todosTweets();
@@ -30,8 +29,7 @@ public class IndexController {
 
 	public void twittar(Tweet tweet, Result result) {
 		tweet.setData(new Date());
-		bd.adicionaTweet(tweet);
-		
+		bd.adicionaTweet(tweet);			
 		result.forwardTo(this).index(result);
 	}
 

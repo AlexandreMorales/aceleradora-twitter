@@ -10,7 +10,11 @@
 	<title>Delicia de título cara</title>
 	<script type="text/javascript">
 		function editar(id){
-			document.getElementById("idForm"+id).style.visibility="";
+			if(document.getElementById("idForm"+id).style.visibility=="hidden"){
+				document.getElementById("idForm"+id).style.visibility="";				
+			}else{
+				document.getElementById("idForm"+id).style.visibility="hidden";				
+			}
 		}
 	</script>
 </head>

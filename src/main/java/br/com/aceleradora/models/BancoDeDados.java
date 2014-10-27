@@ -31,5 +31,7 @@ public class BancoDeDados{
 	public void editeTweet(int id, String mensagem) {
 		tweets.get(id).setMensagem(mensagem);
 		tweets.get(id).setData(new Date());
+		tweets.add(0, tweets.get(id));
+		tweets.remove(id+1);
 	}
 }
